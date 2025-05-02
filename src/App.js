@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
+  const navigate = useNavigate();
+
+  function LoginR() {
+    navigate("/login");
+  }
+
+  function RegisterR() {
+    navigate("/register");
+  }
+
   return (
     <div className="App">
+      <nav className="navbar">
+        <h1 className="app-title">BLOGGR</h1>
+        {/* The navbar div */}
+        <div className="nav-links">
+          <button type="button" onClick={LoginR} className="btn-login">Login</button>
+          <button type="button" onClick={RegisterR} className="btn-register">Register</button>
+        </div>
+      </nav>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p className="app-description">Bloggr is a platform for sharing your stories, ideas, and blogs. Click start to begin your journey!</p>
+        <button type="button" onClick={LoginR} className="btn-start">Start</button>
       </header>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Register />} />
+      </Routes>
     </div>
   );
 }

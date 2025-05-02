@@ -1,0 +1,41 @@
+input[type="text"], input[type="submit"] {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input.userInp, input.emailInp, input.passInp {
+    background-color: #2a2a3b; /* Slightly darker than the container */
+    color: #ffffff; /* White text */
+}
+
+input.userInp:focus, input.emailInp:focus, input.passInp:focus {
+    outline: none;
+    background-color: #3a3a4b; /* Darker on focus */
+}
+
+input.sub {
+    background-color: #3a3a4b; /* Darker button background */
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input.sub:hover {
+    background-color: #4a4a5b; /* Even darker on hover */
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff; /* Blue link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
