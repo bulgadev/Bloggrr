@@ -1,0 +1,4 @@
+flask
+bcrypt
+sqlite3
+python-dotenv
