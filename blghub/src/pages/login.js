@@ -39,7 +39,7 @@ const Login = () => {
 
             try {
                 // Send POST request to the backend
-                const res = await axios.post('http://localhost:5000/api/login', dataToSend);
+                const res = await axios.post('http://localhost:5000/api/login', dataToSend, { withCredentials: true });
                 const result = res.data;
 
                 // Redirect to /dashboard if login is successful
@@ -49,7 +49,7 @@ const Login = () => {
                 // Update the message based on the backend response
                 setMsg(result.message);
             } catch (err) {
-                console.error("Error during registration:", err);
+                console.error("Error, login:", err);
                 setMsg("An error occurred. Please try again.");
             }
         }
@@ -63,7 +63,7 @@ const Login = () => {
             <Navbar />
             <h1 className='mainT'>Login</h1>
             <input type="text" placeholder="Enter your Username" className="userInp" value={username} onChange={handleUserChange} />
-            <input type="text" placeholder="Enter your Password" className="passInp" value={password} onChange={handlePassChange} />
+            <input type="password" placeholder="Enter your Password" className="passInp" value={password} onChange={handlePassChange} />
             <input type="submit" className='sub' onClick={doPost} value="Submit" />
             {getD ? (
                 <div>

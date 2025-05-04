@@ -65,30 +65,38 @@ button {
   background-color: #191A21;
 }
 
+/* Adjusted the navbar layout to remove the gap between the logo and the link */
 .navbar {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   background-color: #181828;
   padding: 8px 16px; /* Reduced padding */
 }
 
+.navbar-logo {
+  width: 56px; /* Fixed typo in width */
+  height: 56px;
+  object-fit: cover;
+  margin-right: 8px; /* Added margin to separate logo and link */
+}
+
 /* Adjusted the Bloggr link to align it to the left side of the navbar */
 .navbar a {
-    font-size: 2em;
-    font-weight: bold;
-    text-decoration: none;
-    color: inherit;
-    margin-right: auto;
-    margin-left: 0; /* Added to align Bloggr to the left */
+  font-size: 2em;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  margin: 0; /* Removed auto margin to fix the gap */
 }
 
 /* Removed hover effect for the Bloggr link */
 .navbar a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
+/* Added spacing between the app name and the login/register links */
 .nav-links {
   display: flex;
-  gap: 8px; /* Reduced gap */
+  gap: 16px; /* Increased gap to separate links */
+  margin-left: auto; /* Push links to the right side of the navbar */
 }

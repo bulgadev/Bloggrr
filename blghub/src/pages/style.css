@@ -9,7 +9,7 @@ a {
     width: fit-content;
 }
 
-input[type="text"], input[type="submit"] {
+input[type="text"], input[type="submit"], input[type="password"] {
     display: block;
     width: 90%;
     margin: 10px auto;

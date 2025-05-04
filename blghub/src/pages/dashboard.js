@@ -8,22 +8,35 @@ function Dashboard() {
 
     //use state
     const [getD, setGetD] = useState(" ");
+    const [blogs, setBlogs] = useState(" ");
   
 
     function handleGet() {
         //calls flask using axios
-        axios.get('http://localhost:5000/api/info',)
+        axios.get('http://localhost:5000/api/info', { withCredentials: true })
         //we take our info from flask
         .then(res => {
-          setGetD(res.data); //saves the data into a state
+          setGetD(res.data); // Save the data into a state
         })
         //just in case our code goes kaboom
-        .catch(err => console.error("Im sorry for u man, good luck:", err));
-  }
+        .catch(err => console.error("Error, dashboard, handleget:", err));
+    }
+
+    function handleBlogs() {
+        //calls flask using axios
+        axios.get('http://localhost:5000/api/info', { withCredentials: true })
+        //we take our info from flask
+        .then(res => {
+            setBlogs(res.data); // Save the data into a state
+        })
+        //just in case our code goes kaboom
+        .catch(err => console.error("Error, dashboard, handleget:", err));
+    }
 
     useEffect(() => {
         handleGet();
         console.log(getD); // Debugging line to inspect the response
+        handleBlogs()
     }, []);
 
   
@@ -34,8 +47,12 @@ function Dashboard() {
         <header className="App-header">
             <p className="app-description">
                 {/* this line checks for getD.username if it is none it says loading */}
-                Welcome {getD ? getD.username : "Loading..."} {getD ? getD.message : "Loading..."}
+                Welcome {getD.username}.
             </p>
+            <br></br>
+            <p>Your blogs:</p>
+            <br></br>
+            <p>{blogs.title}</p>
         </header>
       </div>
     );

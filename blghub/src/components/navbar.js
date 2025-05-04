@@ -32,12 +32,15 @@ function Navbar() {
     return (
       <div>
       <nav className="navbar">
-        <Link to="/">Bloggr</Link>
-        {/* The navbar div */}
-        <div className="nav-links">
-          <button type="button" onClick={LoginR} className="btn-login">Login</button>
-          <button type="button" onClick={RegisterR} className="btn-register">Register</button>
-        </div>
+      <a href="/">
+        <img src="/favicon.png" alt="Logo" className="navbar-logo" />
+      </a>
+      <Link to="/">Bloggr</Link>
+      {/* The navbar div */}
+      <div className="nav-links">
+        <button type="button" onClick={LoginR} className="btn-login">Login</button>
+        <button type="button" onClick={RegisterR} className="btn-register">Register</button>
+      </div>
       </nav>
       </div>
     );

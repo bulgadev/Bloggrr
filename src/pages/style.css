@@ -1,4 +1,5 @@
-input[type="text"], input[type="submit"] {
+/* Removed the redundant input.passInp rule and ensured consistent styling for input[type="password"] */
+input[type="text"], input[type="password"], input[type="submit"] {
     display: block;
     width: 90%;
     margin: 10px auto;
@@ -6,14 +7,11 @@ input[type="text"], input[type="submit"] {
     border: none;
     border-radius: 5px;
     font-size: 1rem;
-}
-
-input.userInp, input.emailInp, input.passInp {
     background-color: #2a2a3b; /* Slightly darker than the container */
     color: #ffffff; /* White text */
 }
 
-input.userInp:focus, input.emailInp:focus, input.passInp:focus {
+input[type="text"]:focus, input[type="password"]:focus {
     outline: none;
     background-color: #3a3a4b; /* Darker on focus */
 }

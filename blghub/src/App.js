@@ -4,9 +4,35 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Navbar from './components/navbar';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
+
+    const [getD, setGetD] = useState(null);
+
+  useEffect(() => {
+    handleGet()
+  }, [])
+
+  function handleGet() {
+    //calls flask using axios
+    axios.get('http://localhost:5000/api/info', { withCredentials: true })
+    //we take our info from flask
+    .then(res => {
+      setGetD(res.data); // Save the data into a state
+    })
+    //just in case our code goes kaboom
+    .catch(err => console.error("Error, dashboard, handleget:", err));
+
+    const msg = getD
+
+    if (msg == "sessioned") {
+      navigate("/dashboard");
+    }
+  }
 
   function LoginR() {
     navigate("/login");

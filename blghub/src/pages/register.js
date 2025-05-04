@@ -71,7 +71,7 @@ const Register = () => {
             <h1 className='mainT'>Register</h1>
             <input type="text" placeholder="Enter your Username" className="userInp" value={username} onChange={handleUserChange} />
             <input type="text" placeholder="Enter your Email" className="emailInp" value={email} onChange={handleEmailChange} />
-            <input type="text" placeholder="Enter your Password" className="passInp" value={password} onChange={handlePassChange} />
+            <input type="password" placeholder="Enter your Password" className="passInp" value={password} onChange={handlePassChange} />
             <input type="submit" className='sub' onClick={doPost} value="Submit" />
             {getD ? (
                 <div>

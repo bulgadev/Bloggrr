@@ -18,6 +18,7 @@ conn = sqlite3.connect("my_database.db", check_same_thread=False)  # Allow conne
 cursor = conn.cursor()
 
 cursor.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, email TEXT)")
+cursor.execute("CREATE TABLE IF NOT EXISTS blogs (title TEXT PRIMARY KEY, content TEXT, data TEXT, author TEXT)")
 conn.commit()
 
 
@@ -52,7 +53,9 @@ def login(username, password):
 
     if check_password(password, stored):
         session['username'] = username
-        print(f"Welcome back {username}")
+        global user
+        user = session['username']
+        print(f"Welcome {user}")
         return jsonify({"message": "Login successful", "redirect": "/dashboard"})
     else:
         return jsonify({"message": "User not found or password"})
@@ -91,14 +94,30 @@ def loginpost():
 
 @app.route('/api/info', methods=['POST', "GET"])
 def info():
-    if 'username' in session:
-        username = session.get('username')
+    username = session.get('username')  # Retrieve the username from the session
+    if username:
         print(username)
-        return jsonify({"username": username})
+        return jsonify({"username": username, "message": "sessioned"})
     else:
-        username = session.get('username')
-        print(username)
+        print("No user in session")
+        print(session)
         return jsonify({"message": "No user logged in"})
+    
+@app.route('/api/blogs', methods=["POST","GET"])
+def blogs():
+    username = session.get('username')
+    cursor.execute("SELECT author FROM blogs WHERE author = ?", (username,))
+    fetch = cursor.fetchone()
+
+    title = fetch[0]
+    content = fetch[1]
+
+    if fetch:
+        return jsonify({"title": title, "content": content})
+    elif fetch is None:
+        return jsonify({"title": "You have no blogs yet.", "content": " "})
+
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

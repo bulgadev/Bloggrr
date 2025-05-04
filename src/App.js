@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import logo from './logo.svg';
 
 function App() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <nav className="navbar">
+        <img src={logo} alt="App Logo" className="app-logo" />
         <h1 className="app-title">BLOGGR</h1>
         {/* The navbar div */}
         <div className="nav-links">
