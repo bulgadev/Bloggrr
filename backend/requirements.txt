@@ -1,4 +1,4 @@
 flask
 bcrypt
-sqlite3
+flask-cors
 python-dotenv

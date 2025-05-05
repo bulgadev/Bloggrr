@@ -103,19 +103,22 @@ def info():
         print(session)
         return jsonify({"message": "No user logged in"})
     
-@app.route('/api/blogs', methods=["POST","GET"])
+@app.route('/api/blogs', methods=["POST", "GET"])
 def blogs():
     username = session.get('username')
-    cursor.execute("SELECT author FROM blogs WHERE author = ?", (username,))
-    fetch = cursor.fetchone()
+    if not username:
+        return jsonify({"message": "No user logged in"}), 401  # Handle case where no user is logged in
 
-    title = fetch[0]
-    content = fetch[1]
+    cursor.execute("SELECT title, content FROM blogs WHERE author = ?", (username,))
+    fetch = cursor.fetchall()
 
     if fetch:
-        return jsonify({"title": title, "content": content})
-    elif fetch is None:
-        return jsonify({"title": "You have no blogs yet.", "content": " "})
+        #checks all rows in the fetch and makes this dicionarry with the blogs
+        blogs = [{"title": row[0], "content": row[1]} for row in fetch]
+        return jsonify({"blogs": blogs})
+    else:
+        #Handle case where no blogs are found
+        return jsonify({"message": "You have no blogs yet."})
 
     
 
