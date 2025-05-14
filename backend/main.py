@@ -60,7 +60,12 @@ def login(username, password):
     else:
         return jsonify({"message": "User not found or password"})
     
-    
+def write(title, content, username, dataAtual):
+    if title == "" or content == "":
+        return jsonify({"message": "Title or content empty"})
+    cursor.execute("INSERT INTO blogs (title, content, data, author) VALUES (?, ?, ?, ?)", (title, content, dataAtual, username))
+    conn.commit()
+    return jsonify({"message": "Submission successful", "redirect": "/dashboard"})
 
 #checks if the email PATTERN is valid
 #maybe will be changed in the future, cuz if the email pattern is right but it doesnt exist it works.
@@ -119,7 +124,48 @@ def blogs():
     else:
         #Handle case where no blogs are found
         return jsonify({"message": "You have no blogs yet."})
+    
+@app.route('/api/blogsPage', methods=["POST", "GET"])
+def blogsPage():
+    # Fetch all blogs from the database without filtering by username
+    cursor.execute("SELECT title, content FROM blogs")
+    fetch = cursor.fetchall()
 
+    if fetch:
+        # Create a dictionary with all blogs
+        blogs = [{"title": row[0], "content": row[1]} for row in fetch]
+        return jsonify({"blogs": blogs})
+    else:
+        # Handle case where no blogs are found
+        return jsonify({"message": "No blogs found."})
+        
+@app.route('/api/blog/<title>', methods=["POST", "GET"])
+def blogPage(title):
+    # Fetch all blogs from the database without filtering by username
+    cursor.execute("SELECT title, content FROM blogs WHERE title = ?", (title,))
+    fetch = cursor.fetchone()
+
+    if fetch:
+        # Create a dictionary with the blog
+        blog = {"title": fetch[0], "content": fetch[1]}
+        return jsonify({"blog": blog}) 
+    else:
+        # Handle case where no blogs are found
+        return jsonify({"message": "No blogs found."})
+
+
+@app.route('/api/write', methods=["POST", "GET"])
+def writepost():
+        # Takes the data from the JSON as data (we use data['variable name'] to get a var)
+    data = request.get_json()
+
+    title = data['Title']
+    content = data['Content']
+    dataAtual = data['Date']
+    username = session.get('username')
+    if not username:
+        return jsonify({"message": "No user logged in"}), 401  # Handle case where no user is logged in
+    return write(title, content, username, dataAtual)
     
 
 if __name__ == '__main__':

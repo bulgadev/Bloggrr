@@ -42,6 +42,11 @@ function App() {
     navigate("/register");
   }
 
+  
+  function blogsr() {
+    navigate("/blogs");
+  }
+
   return (
     <div className="App">
       {/*Nanbar Component*/}
@@ -49,6 +54,8 @@ function App() {
       <header className="App-header">
         <p className="app-description">Bloggr is a platform for sharing your stories, ideas, and blogs. Click start to begin your journey!</p>
         <button type="button" onClick={LoginR} className="btn-start">Start</button>
+        <p className='app-description'>Or click here to see other people's stories</p>
+        <button type="button" onClick={blogsr} className="btn-start">Blogs</button>
       </header>
       <Routes>
         <Route path="/login" element={<Login />} />

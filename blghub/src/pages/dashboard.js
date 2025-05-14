@@ -8,26 +8,34 @@ function Dashboard() {
 
     //use state
     const [getD, setGetD] = useState(" ");
-    const [blogs, setBlogs] = useState(" ");
+    const [blogs, setBlogs] = useState([]);
   
-
-    function handleGet() {
-        //calls flask using axios
-        axios.get('http://localhost:5000/api/info', { withCredentials: true })
-        //we take our info from flask
-        .then(res => {
-          setGetD(res.data); // Save the data into a state
-        })
-        //just in case our code goes kaboom
-        .catch(err => console.error("Error, dashboard, handleget:", err));
+    function writer() {
+      navigate("/Write");
     }
+
+  function handleGet() {
+      //calls flask using axios
+      axios.get('http://localhost:5000/api/info', { withCredentials: true })
+      //we take our info from flask
+      .then(res => {
+        setGetD(res.data); // Save the data into a state
+      })
+      //just in case our code goes kaboom
+      .catch(err => console.error("Error, dashboard, handleget:", err));
+  }
 
     function handleBlogs() {
         //calls flask using axios
-        axios.get('http://localhost:5000/api/info', { withCredentials: true })
+        axios.get('http://localhost:5000/api/blogs', { withCredentials: true })
         //we take our info from flask
         .then(res => {
-            setBlogs(res.data); // Save the data into a state
+          if (res.data.blogs) {
+            setBlogs(res.data.blogs); // Save the blogs array into state
+          } else {
+            setBlogs([{ title: res.data.message, content: "" }]); // Handle case where no blogs are returned
+          }
+            
         })
         //just in case our code goes kaboom
         .catch(err => console.error("Error, dashboard, handleget:", err));
@@ -35,7 +43,6 @@ function Dashboard() {
 
     useEffect(() => {
         handleGet();
-        console.log(getD); // Debugging line to inspect the response
         handleBlogs()
     }, []);
 
@@ -50,9 +57,18 @@ function Dashboard() {
                 Welcome {getD.username}.
             </p>
             <br></br>
+            <h3>Write a blog</h3>
+            <button onClick={writer} className='btn-start'>Write</button>
             <p>Your blogs:</p>
-            <br></br>
-            <p>{blogs.title}</p>
+            <ul>
+              {/* All that map stuff is just to ensure everything needed is rendered */}
+              {blogs.map((blog, index) => (
+                <li key={index}>
+                  <h3>{blog.title || blog.message}</h3>
+                  <p>{blog.content}</p>
+                </li>
+              ))}
+            </ul>
         </header>
       </div>
     );
