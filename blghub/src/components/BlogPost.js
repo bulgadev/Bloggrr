@@ -13,7 +13,7 @@ function BlogPost() {
   function getBlogs() {
 
     //calls flask using axios
-    axios.get(`http://localhost:5000/api/blog/${encodeURIComponent(id)}`, { withCredentials: true })
+    axios.get(`https://bloggrr.onrender.com/api/blog/${encodeURIComponent(id)}`, { withCredentials: true })
     //we take our info from flask
     .then(res => {
     if (res.data.blog) {

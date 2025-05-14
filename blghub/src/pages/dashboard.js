@@ -16,7 +16,7 @@ function Dashboard() {
 
   function handleGet() {
       //calls flask using axios
-      axios.get('http://localhost:5000/api/info', { withCredentials: true })
+      axios.get('https://bloggrr.onrender.com/api/info', { withCredentials: true })
       //we take our info from flask
       .then(res => {
         setGetD(res.data); // Save the data into a state
@@ -27,7 +27,7 @@ function Dashboard() {
 
     function handleBlogs() {
         //calls flask using axios
-        axios.get('http://localhost:5000/api/blogs', { withCredentials: true })
+        axios.get('https://bloggrr.onrender.com/api/blogs', { withCredentials: true })
         //we take our info from flask
         .then(res => {
           if (res.data.blogs) {

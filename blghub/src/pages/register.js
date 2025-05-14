@@ -22,7 +22,7 @@ const Register = () => {
 
     function handleGet() {
         //calls flask using axios
-        axios.get('http://localhost:5000/api/register')
+        axios.get('https://bloggrr.onrender.com/api/register')
         //we take our info from flask
         .then(res => {
         
@@ -42,7 +42,7 @@ const Register = () => {
 
             try {
                 // Send POST request to the backend
-                const res = await axios.post('http://localhost:5000/api/register', dataToSend);
+                const res = await axios.post('https://bloggrr.onrender.com/api/register', dataToSend);
                 const result = res.data;
                 if (result === "Registered") {
                     window.location.href = '/login';

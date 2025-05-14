@@ -12,7 +12,7 @@ function Blogs() {
 
         function handleBlogs() {
             //calls flask using axios
-            axios.get('http://localhost:5000/api/blogsPage', { withCredentials: true })
+            axios.get('https://bloggrr.onrender.com/api/blogsPage', { withCredentials: true })
             //we take our info from flask
             .then(res => {
             if (res.data.blogs) {

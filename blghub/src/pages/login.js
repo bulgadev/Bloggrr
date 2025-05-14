@@ -20,7 +20,7 @@ const Login = () => {
 
     function handleGet() {
         //calls flask using axios
-        axios.get('http://localhost:5000/api/login')
+        axios.get('https://bloggrr.onrender.com/api/login')
         //we take our info from flask
         .then(res => {
           setGetD(res.getD); //saves the data into a state
@@ -39,7 +39,7 @@ const Login = () => {
 
             try {
                 // Send POST request to the backend
-                const res = await axios.post('http://localhost:5000/api/login', dataToSend, { withCredentials: true });
+                const res = await axios.post('https://bloggrr.onrender.com/api/login', dataToSend, { withCredentials: true });
                 const result = res.data;
 
                 // Redirect to /dashboard if login is successful
